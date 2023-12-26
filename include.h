@@ -136,3 +136,17 @@ namespace sorting {
         }
         return mas;
     }
+
+   Stats average_stats(int size, Stats(*sorted_func)(vector<int>& arr), int seed) {
+       int count = 100;
+       Stats stats;
+       int min = 0;
+       int max = 100000;
+       for (int i = 0; i < count; i++) {
+           vector<int> mas = random_mas(size, min, max, seed);
+           stats += sorted_func(mas);
+       }
+       stats.comparison_count /= count;
+       stats.copy_count /= count;
+       return stats;
+   }
