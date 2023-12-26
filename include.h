@@ -95,3 +95,44 @@ namespace sorting {
             heapify(mas, size, largest, stats);
         }
     }
+
+    Stats heap_sort(vector<int>& mas) {
+        Stats stats;
+        int size = mas.size();
+        for (int i = size / 2 - 1; i >= 0; i--) {
+            heapify(mas, size, i, stats);
+        }
+
+        for (int i = size - 1; i > 0; i--) {
+            swap(mas[0], mas[i]);
+            stats.copy_count += 2;
+            heapify(mas, i, 0, stats);
+        }
+        return stats;
+    }
+
+   
+    vector<int> sorted(size_t size) {
+        vector<int> mas;
+        for (int i = 0; i < size; i++)
+            mas.push_back(i);
+        return mas;
+    }
+
+    vector<int> back_sorted(size_t size) {
+        vector<int> mas;
+        for (int i = size; i > 0; i--)
+            mas.push_back(i);
+        return mas;
+    }
+
+    vector<int> random_mas(size_t size, int min, int max, int seed) {
+        vector<int> mas;
+        mt19937 gen(seed);
+        uniform_real_distribution<> segment(min, max);
+        for (int i = 0; i < size; ++i) {
+            int value = segment(gen);
+            mas.push_back(value);
+        }
+        return mas;
+    }
