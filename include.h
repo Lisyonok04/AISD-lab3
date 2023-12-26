@@ -71,3 +71,27 @@ namespace sorting {
         return stats;
     }
 
+    void heapify(vector<int>& mas, int size, int i, Stats& stats) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        stats.comparison_count++;
+        if (left < size && mas[left] > mas[largest]) {
+            largest = left;
+            stats.copy_count++;
+        }
+
+        stats.comparison_count++;
+        if (right < size && mas[right] > mas[largest]) {
+            largest = right;
+            stats.copy_count++;
+        }
+
+        stats.comparison_count++;
+        if (largest != i) {
+            swap(mas[i], mas[largest]);
+            stats.copy_count += 2;
+            heapify(mas, size, largest, stats);
+        }
+    }
