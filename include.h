@@ -1,6 +1,8 @@
 #pragma once
-#include <ctime>
+#include <iostream>
 #include <vector>
+#include <random>
+#include <ctime>
 
 using namespace std;
 
@@ -23,4 +25,23 @@ namespace sorting {
             return *this;
         }
     };
+
+    ostream& operator<<(std::ostream& stream, const Stats& stats) {
+        stream << "(" << stats.comparison_count << ", " << stats.copy_count << ")" << endl;
+        return stream;
+    }
+
+    Stats insert_sort(vector<int>& mas) {
+        Stats stats;
+        for (int i = 1; i < mas.size(); i++) {
+            for (int j = i; j > 0; j--) {
+                stats.comparison_count++;
+                if (mas[j - 1] > mas[j]) {
+                    swap(mas[j - 1], mas[j]);
+                    stats.copy_count += 2;
+                }
+            }
+        }
+        return stats;
+    }
 
