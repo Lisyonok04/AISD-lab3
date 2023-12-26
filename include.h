@@ -45,3 +45,29 @@ namespace sorting {
         return stats;
     }
 
+    Stats shaker_sort(vector<int>& mas) {
+        Stats stats;
+        int left = 1, right = mas.size() - 1;
+        while (left <= right) {
+            for (int i = right; i >= left; i--) {
+                stats.comparison_count++;
+                if (mas[i - 1] > mas[i]) {
+                    swap(mas[i - 1], mas[i]);
+                    stats.copy_count += 2;
+                    cout << mas << endl;
+                }
+            }
+            left++;
+            for (int i = left; i <= right; i++) {
+                stats.comparison_count++;
+                if (mas[i - 1] > mas[i]) {
+                    swap(mas[i - 1], mas[i]);
+                    stats.copy_count += 2;
+                    cout << mas << endl;
+                }
+            }
+            right--;
+        }
+        return stats;
+    }
+
